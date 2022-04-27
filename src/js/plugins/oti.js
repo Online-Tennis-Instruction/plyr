@@ -54,6 +54,31 @@ class OtiPlugin {
         player.on('play', () => {
             this.disableStepMode();
         });
+
+        this.setKeyHandler('+', repeat => {
+            if (!repeat) {
+                let index = player.config.speed.options.indexOf(player.speed)
+                if (index >= 0) {
+                    player.speed = player.config.speed.options[index + 1] || player.speed;
+                }
+            }
+        });
+
+        this.setKeyHandler('-', repeat => {
+            if (!repeat) {
+                let index = player.config.speed.options.indexOf(player.speed)
+                if (index >= 0) {
+                    player.speed = player.config.speed.options[index - 1] || player.speed;
+                }
+            }
+        });
+
+        this.setKeyHandler('n', repeat => {
+            if (!repeat) {
+                player.speed = 1;
+            }
+        });
+
     }
 
     enableStepMode() {
@@ -81,7 +106,7 @@ class OtiPlugin {
         let value = this.player.storage.get(MENU_TYPE_MIRROR_MODE);
         this.setMirrorMode(value);
     }
-    
+
     createCustomButtons(self, control, container, createButton, defaultAttributes) {
         if (control === 'step-backward') {
             container.appendChild(createButton.call(self, 'step-backward', defaultAttributes));
