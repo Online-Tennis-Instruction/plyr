@@ -73,6 +73,7 @@ class Listeners {
       // Which keys should we prevent default
       const preventDefault = [
         'Space',
+        ' ',
         'ArrowLeft',
         'ArrowUp',
         'ArrowRight',
