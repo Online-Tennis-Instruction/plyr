@@ -119,6 +119,7 @@ class Listeners {
           break;
 
         case 'Space':
+        case ' ':
         case 'k':
           if (!repeat) {
             silencePromise(player.togglePlay());
@@ -162,6 +163,7 @@ class Listeners {
           break;
 
         default:
+          player.oti.onKeyPressed(key, repeat);
           break;
       }
 
@@ -901,6 +903,8 @@ class Listeners {
       'volume',
       false,
     );
+
+    player.oti.bindListeners(this, elements);
   };
 }
 

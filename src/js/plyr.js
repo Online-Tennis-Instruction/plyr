@@ -31,6 +31,7 @@ import { cloneDeep, extend } from './utils/objects';
 import { silencePromise } from './utils/promise';
 import { getAspectRatio, reduceAspectRatio, setAspectRatio, validateAspectRatio } from './utils/style';
 import { parseUrl } from './utils/urls';
+import oti from './plugins/oti';
 
 // Private properties
 // TODO: Use a WeakMap for private globals
@@ -255,6 +256,8 @@ class Plyr {
     }
 
     this.eventListeners = [];
+
+    this.oti = oti.setup(this, controls);
 
     // Create listeners
     this.listeners = new Listeners(this);

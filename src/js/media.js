@@ -53,6 +53,7 @@ const media = {
     } else if (this.isVimeo) {
       vimeo.setup.call(this);
     }
+    this.oti.onMediaChanged();
   },
 };
 

@@ -527,6 +527,7 @@ const controls = {
             break;
 
           default:
+            this.oti.onMenuItemChanged(type, value);
             break;
         }
 
@@ -892,7 +893,7 @@ const controls = {
         return captions.getLabel.call(this);
 
       default:
-        return null;
+        return this.oti.getLabel(setting, value);
     }
   },
 
@@ -1359,6 +1360,8 @@ const controls = {
         container.appendChild(createTime.call(this, 'duration', defaultAttributes));
       }
 
+      this.oti.createCustomButtons(this, control, container, createButton, defaultAttributes);
+
       // Volume controls
       if (control === 'mute' || control === 'volume') {
         let { volume } = this.elements;
@@ -1613,6 +1616,7 @@ const controls = {
     }
 
     setSpeedMenu.call(this);
+    this.oti.setMirrorMenu(this, controls);
 
     return container;
   },
