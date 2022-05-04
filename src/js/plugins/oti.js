@@ -23,6 +23,19 @@ extend(defaults, {
     }
 });
 
+const IS_IOS_APP = navigator.userAgent.startsWith("OTI_ios_app");
+const IS_ANDROID_APP = navigator.userAgent.startsWith("OTI_android_app");
+const FULLSCREEN_CLASSES = [];
+if(IS_ANDROID_APP || IS_IOS_APP) {
+    FULLSCREEN_CLASSES.push("plyr__oti--landscape");
+    if(IS_IOS_APP) {
+        FULLSCREEN_CLASSES.push("plyr__oti--ios");
+    } else {
+        FULLSCREEN_CLASSES.push("plyr__oti--android");
+    }
+}
+
+
 class OtiPlugin {
 
     keyHandler = {};
@@ -31,6 +44,11 @@ class OtiPlugin {
         this.player = player;
         this.controls = controls;
         player.options[MENU_TYPE_MIRROR_MODE] = player.config[MENU_TYPE_MIRROR_MODE].options;
+    }
+
+    initialize() {
+        const player = this.player;
+
         this.setKeyHandler('r', () => {
             if (player[MENU_TYPE_MIRROR_MODE] === MIRROR_MODE_OFF) {
                 this.setMirrorMode(MIRROR_MODE_ON);
@@ -79,6 +97,17 @@ class OtiPlugin {
             }
         });
 
+        if (IS_IOS_APP || IS_ANDROID_APP) {
+            player.on('enterfullscreen', () => {
+                const classList = player.elements.container.classList;
+                classList.add.apply(classList, FULLSCREEN_CLASSES);
+            });
+
+            player.on('exitfullscreen', () => {
+                const classList = player.elements.container.classList;
+                classList.remove.apply(classList, FULLSCREEN_CLASSES);
+            })
+        }
     }
 
     enableStepMode() {
@@ -198,11 +227,11 @@ class OtiPlugin {
             [MENU_TYPE_MIRROR_MODE]: value
         });
 
-        const style = player.elements.wrapper.style;
+        const classList = player.elements.wrapper.classList;
         if (value === MIRROR_MODE_ON) {
-            style.transform = "scale(-1, 1)";
+            classList.add("plyr__oti--mirrored");
         } else {
-            style.transform = "";
+            classList.remove("plyr__oti--mirrored");
         }
     }
 }

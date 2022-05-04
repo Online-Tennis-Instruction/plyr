@@ -1,3 +1,47 @@
 .plyr--video .plyr__control--overlaid.plyr__oti__hidden {
     display: none;
 }
+
+.plyr__video-wrapper.plyr__oti--mirrored {
+    transform: scale(-1, 1);
+}
+
+.plyr--video div.plyr__controls {
+    transition: opacity .4s ease-in-out;
+    transform: none;
+}
+
+.plyr--video.plyr--hide-controls div.plyr__controls {
+    transform: none;
+}
+
+.plyr--video.plyr__oti--ios .plyr__controls {
+    padding-left: 70px !important;
+}
+
+.plyr--fullscreen-enabled.plyr__oti--landscape {
+
+    >* {
+        transform: rotate(90deg) !important;
+    }
+
+    >.plyr__video-wrapper.plyr__oti--mirrored {
+        transform: rotate(90deg) scaleX(-1) !important;
+    }
+
+    >.plyr__video-wrapper,
+    >.plyr__controls {
+        width: 100vh;
+        margin: 0;
+    }
+
+    >.plyr__controls {
+        top: -60px;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 60px;
+        max-width: unset !important;
+        transform-origin: bottom left;
+    }
+}

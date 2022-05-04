@@ -322,6 +322,8 @@ class Plyr {
     if (this.config.previewThumbnails.enabled) {
       this.previewThumbnails = new PreviewThumbnails(this);
     }
+
+    this.oti.initialize();
   }
 
   // ---------------------------------------
