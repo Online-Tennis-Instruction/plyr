@@ -3,7 +3,7 @@
 }
 
 .plyr__video-wrapper.plyr__oti--mirrored {
-    transform: scale(-1, 1);
+    transform: scale(-1.003, 1); /* chrome ignores -1 in fullscreen mode */
 }
 
 .plyr--video div.plyr__controls {
