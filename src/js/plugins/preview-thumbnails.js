@@ -217,7 +217,12 @@ class PreviewThumbnails {
     } else {
       // Calculate seek hover position as approx video seconds
       const clientRect = this.player.elements.progress.getBoundingClientRect();
-      const percentage = (100 / clientRect.width) * (event.pageX - clientRect.left);
+      let percentage;
+      if(clientRect.height > clientRect.width) {
+        percentage = (100 / clientRect.height) * (event.clientY - clientRect.top);
+      } else {
+        percentage = (100 / clientRect.width) * (event.clientX - clientRect.left);
+      }
       this.seekTime = this.player.media.duration * (percentage / 100);
 
       if (this.seekTime < 0) {

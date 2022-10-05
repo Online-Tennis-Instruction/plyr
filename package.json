@@ -95,7 +95,7 @@
     "core-js": "^3.22.0",
     "custom-event-polyfill": "^1.0.7",
     "loadjs": "^4.2.0",
-    "rangetouch": "^2.0.1",
+    "rangetouch": "file:../rangetouch",
     "url-polyfill": "^1.1.12"
   }
 }

@@ -699,7 +699,12 @@ class Listeners {
     // Set range input alternative "value", which matches the tooltip time (#954)
     this.bind(elements.inputs.seek, 'mousedown mousemove', (event) => {
       const rect = elements.progress.getBoundingClientRect();
-      const percent = (100 / rect.width) * (event.pageX - rect.left);
+      let percent;
+      if(rect.height > rect.width) {
+        percent = (100 / rect.height) * (event.clientY - rect.top);
+      } else {
+        percent = (100 / rect.width) * (event.clientX - rect.left);
+      }
       event.currentTarget.setAttribute('seek-value', percent);
     });
 
