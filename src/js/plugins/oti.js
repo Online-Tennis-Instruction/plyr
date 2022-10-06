@@ -26,15 +26,12 @@ extend(defaults, {
 const IS_IOS_APP = navigator.userAgent.startsWith("OTI_ios_app");
 const IS_ANDROID_APP = navigator.userAgent.startsWith("OTI_android_app");
 const FULLSCREEN_CLASSES = [];
-if(IS_ANDROID_APP || IS_IOS_APP) {
-    FULLSCREEN_CLASSES.push("plyr__oti--landscape");
-    if(IS_IOS_APP) {
-        FULLSCREEN_CLASSES.push("plyr__oti--ios");
-    } else {
-        FULLSCREEN_CLASSES.push("plyr__oti--android");
-    }
+if(IS_IOS_APP) {
+    FULLSCREEN_CLASSES.push("plyr__oti--ios");
+} else if(IS_ANDROID_APP) {
+    FULLSCREEN_CLASSES.push("plyr__oti--android");
 }
-
+const LANDSCAPE_CLASS = "plyr__oti--landscape";
 
 class OtiPlugin {
 
@@ -101,12 +98,33 @@ class OtiPlugin {
             player.on('enterfullscreen', () => {
                 const classList = player.elements.container.classList;
                 classList.add.apply(classList, FULLSCREEN_CLASSES);
+                this.isFullscreen = true;
+                this.updateLandscapeMode();
             });
 
             player.on('exitfullscreen', () => {
                 const classList = player.elements.container.classList;
                 classList.remove.apply(classList, FULLSCREEN_CLASSES);
+                this.isFullscreen = false;
+                this.updateLandscapeMode();
             })
+
+            window.addEventListener('resize', () => {
+                this.updateLandscapeMode();
+            });
+        }
+    }
+
+    updateLandscapeMode() {
+        const classList = this.player.elements.container.classList;
+        if(this.isFullscreen) {
+            if(window.innerWidth < window.innerHeight) {
+                classList.add(LANDSCAPE_CLASS);
+            } else {
+                classList.remove(LANDSCAPE_CLASS);
+            }
+        } else {
+            classList.remove(LANDSCAPE_CLASS);
         }
     }
 
