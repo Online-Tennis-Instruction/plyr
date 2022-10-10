@@ -16,7 +16,13 @@
 }
 
 .plyr--video.plyr__oti--ios .plyr__controls {
-    padding-left: 70px !important;
+    width: 80vh !important;
+    top: 5vh !important;
+}
+
+.plyr__progress > input {
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
 }
 
 .plyr--fullscreen-enabled.plyr__oti--landscape {
