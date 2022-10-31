@@ -25,12 +25,11 @@ extend(defaults, {
 
 const IS_IOS_APP = navigator.userAgent.startsWith("OTI_ios_app");
 const IS_ANDROID_APP = navigator.userAgent.startsWith("OTI_android_app");
-const FULLSCREEN_CLASSES = [];
-if(IS_IOS_APP) {
-    FULLSCREEN_CLASSES.push("plyr__oti--ios");
-} else if(IS_ANDROID_APP) {
-    FULLSCREEN_CLASSES.push("plyr__oti--android");
-}
+
+const EMBEDDED_CLASS = "plyr__oti--embedded";
+const FULLSCREEN_CLASS = "plyr__oti--fullscreen";
+const IOS_CLASS = "plyr__oti--ios";
+const ANDROID_CLASS = "plyr__oti--android";
 const LANDSCAPE_CLASS = "plyr__oti--landscape";
 
 class OtiPlugin {
@@ -94,25 +93,32 @@ class OtiPlugin {
             }
         });
 
-        if (IS_IOS_APP || IS_ANDROID_APP) {
-            player.on('enterfullscreen', () => {
-                const classList = player.elements.container.classList;
-                classList.add.apply(classList, FULLSCREEN_CLASSES);
-                this.isFullscreen = true;
-                this.updateLandscapeMode();
-            });
-
-            player.on('exitfullscreen', () => {
-                const classList = player.elements.container.classList;
-                classList.remove.apply(classList, FULLSCREEN_CLASSES);
-                this.isFullscreen = false;
-                this.updateLandscapeMode();
-            })
-
-            window.addEventListener('resize', () => {
-                this.updateLandscapeMode();
-            });
+        const classList = player.elements.container.classList;
+        classList.add(EMBEDDED_CLASS);
+        if (IS_IOS_APP) {
+            classList.add(IOS_CLASS);
+        } else if (IS_ANDROID_APP) {
+            classList.add(ANDROID_CLASS);
         }
+
+        player.on('enterfullscreen', () => {
+            classList.add(FULLSCREEN_CLASS);
+            classList.remove(EMBEDDED_CLASS);
+            this.isFullscreen = true;
+            this.updateLandscapeMode();
+        });
+
+        player.on('exitfullscreen', () => {
+            const classList = player.elements.container.classList;
+            classList.remove(FULLSCREEN_CLASS);
+            classList.add(EMBEDDED_CLASS);
+            this.isFullscreen = false;
+            this.updateLandscapeMode();
+        })
+
+        window.addEventListener('resize', () => {
+            this.updateLandscapeMode();
+        });
     }
 
     updateLandscapeMode() {

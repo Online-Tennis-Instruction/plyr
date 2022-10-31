@@ -15,7 +15,7 @@
     transform: none;
 }
 
-.plyr--video.plyr__oti--ios .plyr__controls {
+.plyr--video.plyr__oti--fullscreen.plyr__oti--ios .plyr__controls {
     width: 80vh !important;
     top: 5vh !important;
 }
@@ -25,7 +25,7 @@
     padding-bottom: 20px !important;
 }
 
-.plyr--fullscreen-enabled.plyr__oti--landscape {
+.plyr__oti--fullscreen.plyr__oti--landscape {
 
     >* {
         transform: rotate(90deg) !important;
