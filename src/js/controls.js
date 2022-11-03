@@ -1620,7 +1620,7 @@ const controls = {
     }
 
     setSpeedMenu.call(this);
-    this.oti.setMirrorMenu(this, controls);
+    this.oti.setOTIMenus(this, controls);
 
     return container;
   },
