@@ -107,12 +107,14 @@ class OtiPlugin {
         });
 
         const classList = player.elements.container.classList;
-        classList.add(EMBEDDED_CLASS);
-        if (IS_IOS_APP) {
-            classList.add(IOS_CLASS);
-        } else if (IS_ANDROID_APP) {
-            classList.add(ANDROID_CLASS);
-        }
+        setTimeout(() => { // needs to be deferred or it won't work
+            classList.add(EMBEDDED_CLASS);
+            if (IS_IOS_APP) {
+                classList.add(IOS_CLASS);
+            } else if (IS_ANDROID_APP) {
+                classList.add(ANDROID_CLASS);
+            }
+        }, 0);
 
         player.on('enterfullscreen', () => {
             classList.add(FULLSCREEN_CLASS);
